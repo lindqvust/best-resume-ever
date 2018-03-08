@@ -3,6 +3,6 @@ const lang = {
   experience: 'Patirtis',
   education: 'Išsilavinimas',
   skills: 'Įgūdžiai',
-  about: 'Apie mane'
+  about: 'Apie mane',
 };
 export default lang;

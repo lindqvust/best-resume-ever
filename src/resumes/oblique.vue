@@ -74,9 +74,9 @@
 
 <script>
 import Vue from 'vue';
-import { getVueOptions } from './options';
+import getVueOptions from './options';
 
-let name = 'oblique';
+const name = 'oblique';
 export default Vue.component(name, getVueOptions(name));
 </script>
 

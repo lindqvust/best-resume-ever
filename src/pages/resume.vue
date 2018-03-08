@@ -11,8 +11,9 @@
 <script>
 import Vue from 'vue';
 import '../resumes/resumes';
+
 export default Vue.component('resume', {
-  name: 'app'
+  name: 'app',
 });
 </script>
 
@@ -39,7 +40,7 @@ export default Vue.component('resume', {
   background: white;
   position: relative;
   width: 21cm;
-  height: 29.68cm;
+  height: 59.36cm;
   display: block;
   page-break-after: auto;
   overflow: hidden;

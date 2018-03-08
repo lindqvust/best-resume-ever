@@ -1,19 +1,15 @@
 import yaml from 'js-yaml';
-import {
-  PERSON
-} from '../../resume/data.yml';
-import {
-  terms
-} from '../terms';
+import { PERSON } from '../../resume/data.yml';
+import terms from '../terms';
 
 // Called by templates to decrease redundancy
 function getVueOptions (name) {
-  let opt = {
-    name: name,
+  const opt = {
+    name,
     data () {
       return {
         person: yaml.load(PERSON),
-        terms: terms
+        terms,
       };
     },
     computed: {
@@ -30,12 +26,10 @@ function getVueOptions (name) {
           });
 
         return useLang;
-      }
-    }
+      },
+    },
   };
   return opt;
 }
 
-export {
-  getVueOptions
-};
+export default getVueOptions;

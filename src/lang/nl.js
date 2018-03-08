@@ -3,6 +3,6 @@ const lang = {
   experience: 'Ervaringen',
   education: 'Opleidingen',
   skills: 'Skills',
-  about: 'Over mij'
+  about: 'Over mij',
 };
 export default lang;

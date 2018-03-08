@@ -3,6 +3,6 @@ const lang = {
   experience: '職務経歴',
   education: '学歴',
   skills: 'スキル',
-  about: '自己紹介'
+  about: '自己紹介',
 };
 export default lang;

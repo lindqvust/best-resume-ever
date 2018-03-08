@@ -2,30 +2,28 @@
 <div class="resume">
   <div class="leftCol m_box">
     <div class="shadow"></div>
-    <div class="heading" id="myselfpic">
-    </div>
     <div class="section-headline">
       {{ lang.contact }}
     </div>
     <div class="item">
       <div class="icon">
-        <i class="material-icons">account_circle</i>
+        <i class="fa fa-map-marker"></i>
       </div>
       <div class="text">
         <ul>
-          <li> {{ lang.born }} {{person.birth.year}} {{ lang.bornIn }} {{person.birth.location}}</li>
+          <li> {{ person.location }}</li>
         </ul>
       </div>
     </div>
 
     <div class="item">
       <div class="icon">
-        <i class="material-icons">location_city</i>
+        <i class="material-icons fa-city">location_city</i>
       </div>
       <div class="text">
         <ul>
-          <li>{{person.contact.street}}</li>
-          <li>{{person.contact.city}}</li>
+          <li>{{ person.contact.street }}</li>
+          <li>{{ person.contact.city }}</li>
         </ul>
       </div>
     </div>
@@ -52,6 +50,28 @@
       </div>
     </a>
 
+    <a :href="'https://twitter.com/'+person.contact.twitter">
+      <div class="item">
+        <div class="icon">
+          <i class="fa fa-twitter"></i>
+        </div>
+        <div class="text">
+          @{{ person.contact.twitter }}
+        </div>
+      </div>
+    </a>
+
+    <a :href="'https://t.me/'+person.contact.telegram">
+      <div class="item">
+        <div class="icon">
+          <i class="fa fa-telegram"></i>
+        </div>
+        <div class="text">
+          @{{ person.contact.telegram }}
+        </div>
+      </div>
+    </a>
+
     <a v-if="person.contact.github" :href="'https://github.com/'+person.contact.github" target="_blank">
       <div class="item">
         <div class="icon">
@@ -70,23 +90,53 @@
           <i class="material-icons">language</i>
         </div>
         <div class="text">
-          <span>{{person.contact.website}}</span>
+          <span>{{ person.contact.website }}</span>
         </div>
       </div>
     </a>
 
-    <div class="item last">
+    <div v-if="person.contact.fingerprint" class="item">
+      <div class="icon">
+        <i class="fa fa-key"></i>
+      </div>
+      <div class="text">
+        <span>{{ person.contact.fingerprint }}</span>
+      </div>
+    </div>
+
+    <div class="item">
       <div class="section-headline">
         {{ lang.skills }}
       </div>
-      <div class="skill" v-for="skill in person.skills" :key="skill.name">
+      <div class="infos" v-for="skill in person.skills" :key="skill.group">
+        <div class="right skills">
+          <span>{{ skill.group }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="section-headline">
+        {{ lang.personalProjects }}
+      </div>
+      <div class="infos" v-for="personal_projects in person.personal_projects" :key="personal_projects.project">
         <div class="right">
-          <span>{{skill.name}}&nbsp;</span>
-          <div class="progress">
-            <div class="determinate" :style="'width: '+skill.level+'%;'">
-              <i class="fa fa-circle"></i>
-            </div>
+          <span class="subheadline">{{ personal_projects.project }}</span>
+          <div class="block-helper"></div>
+          <div class="description">
+            <span>{{ personal_projects.description }}</span>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item last">
+      <div class="section-headline">
+        {{ lang.opensource }}
+      </div>
+      <div class="infos" v-for="opensource in person.open_source" :key="opensource.project">
+        <div class="right">
+          <span>{{ opensource.project }}</span>
         </div>
       </div>
     </div>
@@ -94,30 +144,50 @@
 
   <div class="rightCol">
     <div class="title">
-      <h2>{{person.name.first}} {{person.name.middle}} {{person.name.last}}</h2>
-      <div>{{person.position}}</div>
+      <span id="myselfpic"></span>
+      <h2>{{ person.name.first }} {{ person.name.middle }} {{ person.name.last }}</h2>
+      <div>{{ person.position }}</div>
     </div>
 
     <div class="section-headline">{{ lang.experience }}</div>
     <div class="block" v-for="experience in person.experience" :key="experience.company">
       <div class="block-helper"></div>
-      <h3 class="headline">{{experience.position}} - {{experience.company}}</h3>
-        <div class="subheadline">{{experience.timeperiod}}</div>
-        <p class="info">
-          {{experience.description}}
-        </p>
+      <h3>{{ experience.position }}</h3>
+      <h3 class="headline">{{ experience.company }}</h3>
+      <div class="subheadline left">{{ experience.timeperiod }}</div>
+      <div class="subheadline right">{{ experience.location }}</div>
+      <div style="clear:both;"></div>
+      <p class="info" v-for="tasks in experience.tasks" :key="tasks.task">
+        <span class="icon"><i class="fa fa-circle"></i></span> {{ tasks.task }}
+      </p>
+      <p class="lists-headline" v-if="experience.projects">Notable Projects:</p>
+      <p class="list" v-for="projects in experience.projects" :key="projects.project">
+        {{ projects.project }}
+      </p>
     </div>
+
     <div class="section-headline">{{ lang.education }}</div>
     <div class="block" v-for="education in person.education" :key="education.degree">
       <div class="block-helper"></div>
-      <div class="headline">{{education.degree}}</div>
-      <p class="info">
-        {{education.timeperiod}}, {{education.description}}
+      <h3>{{ education.degree }}</h3>
+      <h3 class="headline">{{ education.university }}</h3>
+      <div class="subheadline left">{{ education.timeperiod }}</div>
+      <div class="subheadline right">{{ education.location }}</div>
+      <div style="clear:both;"></div>
+      <p class="lists-headline">Awards:</p>
+      <p class="list" v-for="awards in education.awards" :key="awards.award">
+        {{ awards.award }}
       </p>
     </div>
   </div>
 
   <div style="clear:both;"></div>
+  <div id="resume-footer">
+    <div v-if="person.about">
+      <h3>{{ lang.about }}</h3>
+      <p>{{ person.about }}</p>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -125,7 +195,7 @@
 import Vue from 'vue';
 import getVueOptions from './options';
 
-const name = 'material-dark';
+const name = 'blockchain';
 export default Vue.component(name, getVueOptions(name));
 </script>
 
@@ -133,7 +203,7 @@ export default Vue.component(name, getVueOptions(name));
 <style lang="less" scoped>
 .resume {
   font-family:'Roboto' !important;
-  background:#cccccc;
+  background:#ffffff;
 }
 a {
   cursor:pointer;
@@ -147,15 +217,14 @@ a {
 }
 .title {
   right:25px;
-  padding-left:20px;
+  padding-right:25px;
   padding-top:20px;
   bottom:25px;
   h2 {
+    float: right;
     text-transform:uppercase;
     display:block;
-    font-size:1.17em;
-    -webkit-margin-before:1em;
-    -webkit-margin-after:1em;
+    font-size:1.2em;
     -webkit-margin-start:0;
     -webkit-margin-end:0;
     color:white;
@@ -166,12 +235,13 @@ a {
     font-weight:400;
   }
   div {
+    float: right;
     margin-top:-5px;
     margin-top:0;
     margin:0;
     padding:0;
+    padding-right:8px;
     line-height:15pt;
-    font-weight:300;
     font-weight:500;
     letter-spacing:2px;
     letter-spacing:3px;
@@ -179,14 +249,34 @@ a {
     color:#16151c;
     color:rgba(63,61,60,0.71);
     display:block;
-    font-size:0.67em;
-    font-size:10pt;
-    -webkit-margin-before:2.33em;
+    font-size:0.7em;
+    font-size:12pt;
     -webkit-margin-start:0;
     -webkit-margin-end:0;
     padding-top:0;
     text-transform:uppercase;
     opacity:0.8;
+  }
+  span {
+    float: left;
+    background-color:white;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    width:120px;
+    height:120px;
+  }
+  p {
+    float: right;
+    padding-right:8px;
+    letter-spacing:1px;
+    font-weight:300;
+    text-align:justify;
+    color:rgba(0,0,0,0.7);
+    display:block;
+    font-size:0.7em;
+    font-size:8pt;
   }
 }
 .section-headline {
@@ -196,9 +286,9 @@ a {
   font-size:10pt;
   opacity:0.8;
   margin-left:20px;
-  margin-top:40px;
-  margin-bottom:20px;
-  color:#3f3d3c;
+  margin-top:25px;
+  margin-bottom:10px;
+  color:#2D3B8E;
 }
 .c {
   clear:both;
@@ -280,20 +370,43 @@ h4 {
       font-size:14px;
       font-weight:300;
     }
+    .left {
+      float:left;
+    }
+    .right {
+      float:right;
+    }
     .info {
       font-size:14px;
       color:rgba(0,0,0,0.870588);
       margin-bottom:0;
-      padding-top:20px;
+      padding-top:10px;
+      text-align:justify;
+    }
+    .lists-headline {
+      font-size:14px;
+      font-weight:400;
+      color:#2A4552;
+      margin-bottom:0;
+      padding-top:10px;
+      text-align:left;
+    }
+    .list {
+      font-size:14px;
+      color:rgba(0,0,0,0.870588);
+      margin-bottom:0;
+      text-align:left;
     }
     .icon {
-      width:16%;
+      width:3%;
       float:left;
-      margin-left:0;
+      margin-left:-15px;
+      padding-top:6px;
       .fa, .material-icons {
         text-align:center;
         display:block;
-        font-size:30pt;
+        font-size:7pt;
+        color:#2A9A8D;
       }
     }
     .content {
@@ -338,15 +451,16 @@ h4 {
   padding:0;
   text-align:left;
   color:#ffffff;
-  color:rgba(255,255,255,0.59);
-  background-color:#16151c;
+  background-color:#2B5569;
   overflow:hidden;
   display:block;
   .section-headline {
-    color:rgba(255,255,255,0.54);
+    color:#47D6A2;
+    margin-top:40px;
+    margin-bottom:10px;
   }
   a {
-    color:rgba(255,255,255,0.59);
+    color:#ffffff;
     text-decoration:none;
   }
   .heading {
@@ -369,12 +483,21 @@ h4 {
     .icon {
       width:20%;
       float:left;
+      .fa-city {
+        padding-top:6px;
+      }
+      .fa-github {
+        padding-top:6px;
+      }
+      .fa-key {
+        padding-top:9px;
+      }
     }
     .text {
       float:right;
       width:69%;
       padding-right:10%;
-      padding-top:0;
+      padding-top:5px;
       display:block;
       font-size:15px;
       font-weight:300;
@@ -388,10 +511,16 @@ h4 {
     span {
       font-weight:300;
     }
-    .skill {
+    .infos {
       clear:both;
       width:97%;
-      padding-top:4px;
+      padding-top:10px;
+      color:#ffffff;
+      text-align: justify;
+      .description {
+        color:rgba(255,255,255,0.59);
+        font-size:14px;
+      }
       .left {
         float:left;
         width:10%;
@@ -404,32 +533,17 @@ h4 {
       .right {
         float:right;
         width:93%;
-        .progress {
-          float:left;
-          position:relative;
-          height:2px;
-          display:block;
-          width:95%;
-          background-color:rgba(255,255,255,0.19);
-          border-radius:2px;
-          margin:0.5rem 0 1rem;
-          overflow:visible;
-          margin-bottom:10px;
-          .determinate {
-            background-color:#78909c;
-            position:absolute;
-            top:0;
-            bottom:0;
-            .fa, .material-icons {
-              font-size:13px;
-              position:absolute;
-              top:-4px;
-              right:-2px;
-              margin-left:50%;
-              color:white;
-            }
-          }
-        }
+      }
+      .skills {
+        background-color:#2A4552;
+        border-radius: 5px;
+        padding:8px;
+        text-align: left;
+      }
+      .subheadline {
+        display:block;
+        font-weight:400;
+        padding-bottom: 10px;
       }
     }
   }
@@ -445,5 +559,22 @@ h4 {
 #githubIcon {
   width:25px;
   padding-left:17px;
+}
+#resume-footer {
+  padding: 10px 40px;
+  color:#ffffff;
+  color:rgba(255,255,255,0.59);
+  background-color:#2A9A8D;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: justify;
+  bottom: 0px;
+  width: 100%;
+  h3, p {
+    color:#ffffff;
+    padding:5px;
+    font-weight:400;
+    margin-bottom:0;
+  }
 }
 </style>

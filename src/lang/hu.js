@@ -3,6 +3,6 @@ const lang = {
   experience: 'Munkatapasztalat',
   education: 'Tanulmány',
   skills: 'Készségek',
-  about: 'Rólam'
+  about: 'Rólam',
 };
 export default lang;

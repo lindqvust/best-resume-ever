@@ -3,7 +3,7 @@ const lang = {
   experience: 'Опыт',
   education: 'Образование',
   skills: 'Навыки',
-  about: 'Обо мне'
+  about: 'Обо мне',
 };
 
 export default lang;

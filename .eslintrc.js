@@ -8,12 +8,19 @@ module.exports = {
   },
   env: {
     browser: true,
+    node: true
   },
-  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard',
+  extends: 'airbnb-base',
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html',
+    'eslint-plugin-vue',
+    'eslint-plugin-html',
+    'eslint-plugin-json',
+    'eslint-plugin-import',
+    'eslint-plugin-node',
+    'eslint-plugin-promise',
+    'eslint-plugin-standard'
   ],
   // add your custom rules here
   'rules': {
